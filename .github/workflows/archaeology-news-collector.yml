@@ -1,0 +1,24 @@
+name: Archaeology News Collection
+
+on:
+  schedule:
+    - cron: '0 0,12 * * *'  # Runs at midnight and 12:00 UTC
+  workflow_dispatch:        # Allows manual trigger from GitHub UI
+
+jobs:
+  collect-news:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Collect Archaeology News
+        run: |
+          response=$(curl -X GET "${{ secrets.CLOUD_FUNCTION_URL }}")
+          echo "Function Response: $response"
+          if [[ $response == *"Error"* ]]; then
+            echo "Error detected in response"
+            exit 1
+          fi
+
+      - name: Log collection time
+        if: success()
+        run: |
+          echo "News collection completed at $(date -u)"
