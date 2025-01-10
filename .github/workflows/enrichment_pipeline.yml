@@ -1,0 +1,24 @@
+name: Archaeology Content Enrichment
+on:
+  schedule:
+    - cron: '0 1 * * *'  # Runs at 01:00 UTC (9:00 AM Philippines Time, UTC+8)
+  workflow_dispatch:      # Allows manual trigger from GitHub UI
+jobs:
+  enrich-content:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Enrich Content
+        run: |
+          response=$(curl -X POST \
+            -H "Content-Type: application/json" \
+            -d '{}' \
+            "${{ secrets.ENRICHMENT_PIPELINE_URL }}")
+          echo "Function Response: $response"
+          if [[ $response == *"error"* ]]; then
+            echo "Error detected in response"
+            exit 1
+          fi
+      - name: Log enrichment time
+        if: success()
+        run: |
+          echo "Content enrichment completed at $(date -u)"
