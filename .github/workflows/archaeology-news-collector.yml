@@ -2,7 +2,7 @@ name: Archaeology News Collection
 
 on:
   schedule:
-    - cron: '0 0,12 * * *'  # Runs at midnight and 12:00 UTC
+    - cron: '0 8 * * *'  # Runs at 8:00 AM UTC daily
   workflow_dispatch:        # Allows manual trigger from GitHub UI
 
 jobs:
