@@ -1,0 +1,25 @@
+name: Archaeology Location Extraction
+on:
+  schedule:
+    - cron: '0 3 * * *'  # Runs at 03:00 UTC (11:00 AM Philippines Time, UTC+8)
+  workflow_dispatch:      # Allows manual trigger from GitHub UI
+
+jobs:
+  extract-locations:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Extract Locations
+        run: |
+          response=$(curl -X POST \
+            -H "Content-Type: application/json" \
+            -d '{}' \
+            "${{ secrets.LOCATION_EXTRACTION_URL }}")
+          echo "Function Response: $response"
+          if [[ $response == *"error"* ]]; then
+            echo "Error detected in response"
+            exit 1
+          fi
+      - name: Log extraction time
+        if: success()
+        run: |
+          echo "Location extraction completed at $(date -u)"
