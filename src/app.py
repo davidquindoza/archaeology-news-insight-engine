@@ -9,13 +9,13 @@ from components.news import NewsSection
 def main():
     # Page config
     st.set_page_config(
-        page_title="Archaeological News Explorer",
-        page_icon="🏺",
+        page_title="Archaeological News Hub",
+        page_icon="📜",
         layout="wide",
         initial_sidebar_state="collapsed"
     )
 
-    st.title("Archaeological News Explorer by David")
+    st.title("Archaeological News Hub by David")
     
     # Initialize services
     location_service = LocationService()
