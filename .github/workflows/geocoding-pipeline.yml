@@ -1,7 +1,7 @@
 name: Archaeology Location Extraction
 on:
   schedule:
-    - cron: '0 3 * * *'  # Runs at 03:00 UTC (11:00 AM Philippines Time, UTC+8)
+    - cron: '0 3 * * 1'  # Runs at 03:00 UTC every Monday (11:00 AM Philippines Time, UTC+8) WEEKLY ONLY
   workflow_dispatch:      # Allows manual trigger from GitHub UI
 
 jobs:
