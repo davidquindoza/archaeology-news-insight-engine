@@ -1,15 +1,11 @@
-import os
+import streamlit as st
 from typing import Dict, Any
-from dotenv import load_dotenv
 
 class Config:
-    """Configuration management for the application"""
+    """Configuration management for the application using Streamlit secrets"""
     
     def __init__(self):
-        # Load environment variables from .env file
-        load_dotenv()
-        
-        # Required environment variables
+        # Required configuration variables
         self.required_vars = [
             'GOOGLE_APPLICATION_CREDENTIALS',
             'PROJECT_ID',
@@ -24,20 +20,21 @@ class Config:
         self.config = self._load_config()
         
     def _load_config(self) -> Dict[str, Any]:
-        """Load and validate all configuration variables"""
+        """Load and validate all configuration variables from Streamlit secrets"""
         config = {}
         
-        #Checker
+        # Check for missing variables
         missing_vars = []
         for var in self.required_vars:
-            value = os.getenv(var)
-            if value is None:
+            try:
+                value = st.secrets[var]
+                config[var.lower()] = value
+            except KeyError:
                 missing_vars.append(var)
-            config[var.lower()] = value
             
         if missing_vars:
-            raise EnvironmentError(
-                f"Missing required environment variables: {', '.join(missing_vars)}"
+            raise KeyError(
+                f"Missing required configuration in .streamlit/secrets.toml: {', '.join(missing_vars)}"
             )
             
         return config
