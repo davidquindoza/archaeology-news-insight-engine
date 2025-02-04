@@ -1,5 +1,6 @@
 import streamlit as st
 from typing import Dict, Any
+import json
 
 class Config:
     """Configuration management for the application using Streamlit secrets"""
@@ -7,7 +8,6 @@ class Config:
     def __init__(self):
         # Required configuration variables
         self.required_vars = [
-            'GOOGLE_APPLICATION_CREDENTIALS',
             'PROJECT_ID',
             'DATASET_ID',
             'ENRICHED_TABLE_ID',
@@ -36,6 +36,12 @@ class Config:
             raise KeyError(
                 f"Missing required configuration in .streamlit/secrets.toml: {', '.join(missing_vars)}"
             )
+        
+        # Load GCP service account credentials
+        if 'gcp_service_account' not in st.secrets:
+            raise KeyError("Missing GCP service account configuration in secrets.toml")
+        
+        self.credentials = st.secrets.gcp_service_account
             
         return config
     
@@ -44,9 +50,9 @@ class Config:
         return self.config.get(key.lower(), default)
     
     @property
-    def credentials_path(self) -> str:
-        """Get Google Cloud credentials path"""
-        return self.get('google_application_credentials')
+    def gcp_credentials(self) -> Dict[str, Any]:
+        """Get Google Cloud credentials dictionary"""
+        return self.credentials
     
     @property
     def project_id(self) -> str:

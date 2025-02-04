@@ -1,11 +1,19 @@
 from google.cloud import bigquery
+from google.oauth2 import service_account
 from typing import List, Dict, Any
 from config import config
 
 class NewsService:
     def __init__(self):
-        self.client = bigquery.Client()
-        
+       # Initialize BigQuery client with credentials from config
+        credentials = service_account.Credentials.from_service_account_info(
+            config.gcp_credentials
+        )
+        self.client = bigquery.Client(
+            credentials=credentials,
+            project=config.project_id
+        )
+
     def get_recent_news(self, limit: int = 9) -> List[Dict[str, Any]]:
         """
         Fetches recent news articles including full content
