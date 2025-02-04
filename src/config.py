@@ -16,7 +16,8 @@ class Config:
             'DATASET_ID',
             'ENRICHED_TABLE_ID',
             'NEWS_TABLE_ID',
-            'LOCATIONS_TABLE_ID'
+            'LOCATIONS_TABLE_ID',
+            'CLOUD_FUNCTION_URL'
         ]
         
         # Load and validate configuration
@@ -61,6 +62,11 @@ class Config:
         return self.get('dataset_id')
     
     @property
+    def cloud_function_url(self) -> str:
+        """Get Cloud Function URL"""
+        return self.get('cloud_function_url')
+    
+    @property
     def table_ids(self) -> Dict[str, str]:
         """Get all table IDs"""
         return {
@@ -78,15 +84,3 @@ class Config:
 
 # Create a global config instance
 config = Config()
-
-# Usage example:
-if __name__ == "__main__":
-    try:
-        print("Loaded configuration:")
-        print(f"Project ID: {config.project_id}")
-        print(f"Dataset ID: {config.dataset_id}")
-        print(f"Table paths:")
-        for table_type, table_id in config.table_ids.items():
-            print(f"  {table_type}: {config.get_full_table_path(table_type)}")
-    except Exception as e:
-        print(f"Error loading configuration: {str(e)}")

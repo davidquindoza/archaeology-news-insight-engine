@@ -1,5 +1,3 @@
-# src/services/location_service.py
-
 from google.cloud import bigquery
 from typing import List, Dict, Any
 from config import config
