@@ -2,7 +2,7 @@
 
 An automated news aggregation and analysis system for archaeological discoveries and research, featuring real-time updates, location mapping, and AI-powered insights.
 
-## Architecture Overview
+## App Preview
 ![Architecture Diagram](https://github.com/user-attachments/assets/9e2402d3-0f35-49b3-bc25-85287cf31c01)
 
 ## Architecture Doodle 😄
