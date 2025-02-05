@@ -29,30 +29,30 @@ class Config:
     @property
     def gcp_credentials(self) -> Dict[str, Any]:
         """Get Google Cloud credentials dictionary"""
-        return st.secrets.gcp_service_account
+        return dict(st.secrets["gcp_service_account"])
     
     @property
     def project_id(self) -> str:
         """Get Google Cloud project ID"""
-        return st.secrets.PROJECT_ID
+        return st.secrets["PROJECT_ID"]
     
     @property
     def dataset_id(self) -> str:
         """Get BigQuery dataset ID"""
-        return st.secrets.DATASET_ID
+        return st.secrets["DATASET_ID"]
     
     @property
     def cloud_function_url(self) -> str:
         """Get Cloud Function URL"""
-        return st.secrets.CLOUD_FUNCTION_URL
+        return st.secrets["CLOUD_FUNCTION_URL"]
     
     @property
     def table_ids(self) -> Dict[str, str]:
         """Get all table IDs"""
         return {
-            'news': st.secrets.NEWS_TABLE_ID,
-            'enriched': st.secrets.ENRICHED_TABLE_ID,
-            'locations': st.secrets.LOCATIONS_TABLE_ID
+            'news': st.secrets["NEWS_TABLE_ID"],
+            'enriched': st.secrets["ENRICHED_TABLE_ID"],
+            'locations': st.secrets["LOCATIONS_TABLE_ID"]
         }
     
     def get_full_table_path(self, table_type: str) -> str:
