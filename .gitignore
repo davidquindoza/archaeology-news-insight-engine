@@ -156,6 +156,8 @@ cython_debug/
 
 #streamlit
 .streamlit/secrets.toml
+secrets.toml
+*.toml
 
 
 # PyCharm
