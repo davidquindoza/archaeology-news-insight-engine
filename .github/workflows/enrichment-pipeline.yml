@@ -1,7 +1,7 @@
 name: Archaeology Content Enrichment
 on:
-  schedule:
-    - cron: '0 1 * * *'  # Runs at 01:00 UTC (9:00 AM Philippines Time, UTC+8)
+  # schedule:
+  #   - cron: '0 1 * * *'  # Runs at 01:00 UTC (9:00 AM Philippines Time, UTC+8)
   workflow_dispatch:      # Allows manual trigger from GitHub UI
 jobs:
   enrich-content:
